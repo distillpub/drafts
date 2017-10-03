@@ -1,0 +1,21 @@
+{
+  "name": "drafts.distill.pub",
+  "version": "1.0.0",
+  "description": "Pipeline / glue code for drafts.distill.pub",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/distillpub/drafts.git"
+  },
+  "author": "Ludwig Schubert",
+  "bugs": {
+    "url": "https://github.com/distillpub/drafts/issues"
+  },
+  "homepage": "https://github.com/distillpub/drafts#readme",
+  "devDependencies": {
+    "firebase-tools": "^3.12.0"
+  }
+}
