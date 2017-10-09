@@ -17,5 +17,8 @@
   "homepage": "https://github.com/distillpub/drafts#readme",
   "devDependencies": {
     "firebase-tools": "^3.12.0"
+  },
+  "dependencies": {
+    "distill-template": "distillpub/template#v2.1"
   }
 }
