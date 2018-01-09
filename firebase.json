@@ -1,5 +1,17 @@
 {
   "hosting": {
-    "public": "public"
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "redirects": [ 
+      {
+        "source" : "/index.html",
+        "destination" : "https://distill.pub",
+        "type" : 302
+      }
+    ]
   }
 }

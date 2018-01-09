@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "node" # latest version
+cache:
+  directories:
+    - node_modules
+script:
+  - npm run build
+before_deploy:
+  - cd functions && npm install && cd ..
+deploy:
+  provider: firebase
+  skip_cleanup: true
+  token: $FIREBASE_PRODUCTION_TOKEN
