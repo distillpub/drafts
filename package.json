@@ -26,10 +26,11 @@
   "dependencies": {
     "child_process": "^1.0.2",
     "d3-queue": "^3.0.7",
-    "jsdom": "11.3.0",
-    "jsdom-global": "3.0.2",
     "distill-template": "distillpub/template#v2.2.19",
     "fs-extra": "^5.0.0",
-    "github-api": "^3.0.0"
+    "github-api": "^3.0.0",
+    "jsdom": "11.3.0",
+    "jsdom-global": "3.0.2",
+    "npm": "^5.6.0"
   }
 }
