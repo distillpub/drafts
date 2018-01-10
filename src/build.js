@@ -55,7 +55,8 @@ function getRepoFromURL(name, authorizedURL, targetDir) {
     if (exists) {
       console.log(`${repoFolder} already exists, cleaning & pulling.`)
       return exec(`git -C ${repoFolder} clean -xdf && git -C ${repoFolder} pull`);
-    } else `)
+    } else {
+      console.log(`${repoFolder} is new, cloning.`)
       return exec(`git clone --depth 1 ${authorizedURL} ${repoFolder}`);
     }
   })
