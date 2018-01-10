@@ -25,8 +25,7 @@ function registerWebhooks(repo) {
         events: [ 'push' ],
         config: {
           url: hookURL, 
-          content_type: 'json',
-          secret: process.env.GITHUB_HOOK_SECRET
+          content_type: 'json'
         }
       };
       return repository.createHook(hookOptions)
@@ -56,8 +55,7 @@ function getRepoFromURL(name, authorizedURL, targetDir) {
     if (exists) {
       console.log(`${repoFolder} already exists, cleaning & pulling.`)
       return exec(`git -C ${repoFolder} clean -xdf && git -C ${repoFolder} pull`);
-    } else {
-      console.log(`${repoFolder} is new, cloning repo.`)
+    } else `)
       return exec(`git clone --depth 1 ${authorizedURL} ${repoFolder}`);
     }
   })
