@@ -8,7 +8,7 @@
     ],
     "redirects": [ 
       {
-        "source" : "/index.html",
+        "source" : "/",
         "destination" : "https://distill.pub",
         "type" : 302
       }
