@@ -10,6 +10,34 @@ const buildDir = './build';
 const render = './node_modules/.bin/distill-render';
 const concurrency = 10;
 
+
+function registerWebhooks(repo) {
+  const hookURL = 'https://us-central1-distill-wrp.cloudfunctions.net/githubDraftsWebhook';
+  const repository = githubClient.getRepo(repo.owner.login, repo.name);
+  return repository.listHooks()
+  .then(({data: hooks}) => {
+    const alreadyHasHook = hooks.some((hook) => hook.config.url === hookURL);
+    if (alreadyHasHook) {
+      console.log(`${repo.name} already has hook installed, skipping.`);
+    } else {
+      const hookOptions = {
+        name: 'web',
+        events: [ 'push' ],
+        config: {
+          url: hookURL, 
+          content_type: 'json',
+          secret: process.env.GITHUB_HOOK_SECRET
+        }
+      };
+      return repository.createHook(hookOptions)
+      .then(() => console.log(`Successfully registered hook for ${repo.name}.`));
+    }
+  })
+  .catch(() => {
+    console.log(`Drafts has no admin/hooks access to ${repo.name}, skipping hooks.`);
+  })
+}
+
 function getRepoFromURL(name, authorizedURL, targetDir) {
   console.log('Cloning ' + name + ' ...');
   const repoFolder = `${targetDir}/${name}`;
@@ -26,8 +54,10 @@ function getRepoFromURL(name, authorizedURL, targetDir) {
   .then(exists => {
     let command;
     if (exists) {
-      return exec(`git -C ${repoFolder} pull && git -C ${repoFolder} clean -xdf`);
+      console.log(`${repoFolder} already exists, cleaning & pulling.`)
+      return exec(`git -C ${repoFolder} clean -xdf && git -C ${repoFolder} pull`);
     } else {
+      console.log(`${repoFolder} is new, cloning repo.`)
       return exec(`git clone --depth 1 ${authorizedURL} ${repoFolder}`);
     }
   })
@@ -94,22 +124,18 @@ const user = githubClient.getUser();
 // -all names:
 //  we can't filter by 'post--' prefix as drafts may not follow naming scheme yet.
 const options = {
-  visibility: 'private',
   affiliation: 'collaborator'
 };
 
 user.listRepos(options)
-.then(({data: reposJson}) => {
-  const repos = reposJson.map(repo => [repo.name, repo.clone_url]);
-  const promises = [];
-  for (const [name, url] of repos) {
+.then(({data: repos}) => {
+  return Promise.all(repos.map(repo => {
+    const [name, url] = [repo.name, repo.clone_url];
     const https = url.substring(0, 8);
     const auth = process.env.GITHUB_TOKEN + ':x-oauth-basic@';
     const authorizedURL = https + auth + url.substring(8, url.length);
-    const promise = getRepoFromURL(name, authorizedURL, buildDir);
-    promises.push(promise);
-  }
-  return Promise.all(promises);
+    return registerWebhooks(repo).then(() => getRepoFromURL(name, authorizedURL, buildDir));
+  }));
 })
 .then(() => {
   console.log("...all done!");
