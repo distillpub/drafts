@@ -25,7 +25,8 @@ function registerWebhooks(repo) {
         events: [ 'push' ],
         config: {
           url: hookURL, 
-          content_type: 'json'
+          content_type: 'json',
+          secret: process.env.GITHUB_HOOK_SECRET
         }
       };
       return repository.createHook(hookOptions)
