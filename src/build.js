@@ -10,6 +10,8 @@ const buildDir = './build';
 const render = './node_modules/.bin/distill-render';
 const concurrency = 10;
 
+TEMPLATE_V1_URL = "distill.pub/template.v1.js";
+
 
 function registerWebhooks(repo) {
   const hookURL = 'https://us-central1-distill-wrp.cloudfunctions.net/githubDraftsWebhook';
@@ -92,15 +94,23 @@ function getRepoFromURL(name, authorizedURL, targetDir) {
     console.log(name, sourceDir, targetPublicDir);
     return fs.copy(sourceDir, targetPublicDir);
   })
-  .then(() => fs.move(indexFile, indexFileRaw, {overwrite: true}))
-  .then(() => exec(`${render} -i ${indexFileRaw} -o ${indexFile}`))
-  .then(() => fs.pathExists(targetPublicDir + '/index.html'))
-  .then(exists => {
-    if (!exists) {
-      console.warn(`Could not prerender ${name}. Falling back to deploying raw index.html.`)
-      return fs.move(indexFileRaw, indexFile);
+  .then(() => fs.readFile(indexFile, {encoding: 'utf-8'}))
+  .then((html_string) => {
+    if (html_string.includes(TEMPLATE_V1_URL)) {
+      console.log(`Found template v1, temporarily (2018-02-07) skipping pre-rendering for ${name}.`);
     } else {
-      console.log(`Prerendered ${name}.`)
+      console.log(`No template v1 found, trying to pre-render ${name} from ${indexFile}.`);
+      return fs.move(indexFile, indexFileRaw, {overwrite: true})
+        .then(() => exec(`${render} -i ${indexFileRaw} -o ${indexFile}`))
+        .then(() => fs.pathExists(targetPublicDir + '/index.html'))
+        .then(exists => {
+          if (!exists) {
+            console.warn(`Could not prerender ${name}. Falling back to deploying raw index.html.`)
+            return fs.move(indexFileRaw, indexFile);
+          } else {
+            console.log(`Prerendered ${name}.`);
+          }
+        });
     }
   })
   .catch(error => {
