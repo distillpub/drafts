@@ -3,6 +3,8 @@ Pipeline / glue code for drafts.distill.pub
 
 ## How to publish articles
 
+_This is not final documentation. For now, please only follow the guide on the main Distill website._
+
 ### Add bot account `distillpub-reviewers` as a collaborator of your repo
 If you give it admin access, it can register a webhook and redeploy your article whenever you push changes.
 If you don't give it admin access, it will simply check once a day. Note that if your article gets accepted you will eventually have to transfer ownership of the repository to the `Distillpub` organization anyway, so we recommend adding `distillpub-reviewers` as a collaborator with admin rights.
@@ -12,3 +14,13 @@ If you don't give it admin access, it will simply check once a day. Note that if
 - Ensure the project is linking to a current development version of template v2. You can use the version that we include as a dependency here (at `./node_modules/distill-template/dist/template.v2.js`) or build one from source.
 - When upgrading from v1 you may need to manually rename tags and reorganize parts of the document.
   (For example, `<dt-` -> `<d-`, `</dt-` -> `</d-`, Bibliography and Front Matter need to be Bibtex and JSON tags, etc. Ludwig will write up a transition guide soon.)
+
+## Disclaimer & License
+
+_This project is research code. It is not an official product of Google or any other institution supporting Distill._
+
+Copyright 2018, The Distill Drafts Authors.
+
+Licensed under the Apache License, Version 2.0
+
+See the [full license](LICENSE).
