@@ -14,6 +14,14 @@ If you don't give it admin access, it will simply check once a day. Note that if
 - Ensure the project is linking to a current development version of template v2. You can use the version that we include as a dependency here (at `./node_modules/distill-template/dist/template.v2.js`) or build one from source.
 - When upgrading from v1 you may need to manually rename tags and reorganize parts of the document.
   (For example, `<dt-` -> `<d-`, `</dt-` -> `</d-`, Bibliography and Front Matter need to be Bibtex and JSON tags, etc. Ludwig will write up a transition guide soon.)
+  
+## Troubleshooting
+
+You should not have to interact with draft's build system during normal operation. If anything doesn't behave as you think it should, you can try these approaches:
+
+1. Check [the Travis build status](https://travis-ci.org/distillpub/drafts/).
+2. Empty the build cache (under `More Options` > `Caches`)
+3. Request a new build (under `More Options` > `Trigger build`)
 
 ## Disclaimer & License
 
