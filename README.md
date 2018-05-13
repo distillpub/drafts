@@ -1,4 +1,6 @@
 # drafts
+![Build status](https://travis-ci.org/distillpub/drafts.svg?branch=master)
+
 Pipeline / glue code for drafts.distill.pub
 
 ## How to publish articles
