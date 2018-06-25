@@ -1,9 +1,12 @@
 language: node_js
 node_js:
-  - "8" # use older version to try to avoid weird version conflict
+- '8'
 script:
-  - npm run build
+- npm run build
 deploy:
   provider: firebase
   skip_cleanup: true
-  token: $FIREBASE_PRODUCTION_TOKEN
+  token: "$FIREBASE_PRODUCTION_TOKEN"
+notifications:
+  slack:
+    secure: h5vk/olYT5lunfWZ0L6sb1TLSUbTzToaIua/XqmTDX2sO6rr+EQhULZGSvkwfyx9l60GIiLe7Xfzr084ml4stpDF28S0Fa+DqHbBei/3m+8PhbSLTg13dmGnPa+YRckipDH9MF8tt8CC/s5KKJ2zbutm5n8k2qZmtiqCbmzEl6vTJ+toNJI1xH11ZIybWpjRf9tf78U/WACKJSTBZj5jkEyEE34UYW5NlX4U6LsGYgyBBZHimeO2QwtmPr6V4Nk4VTJfN/FD1ERq+8RiRxJDLCwPauf4oMSfQc2ERkNZuWN+8xq6LKpvQimqW09QQAdSRu7JR+JDFitxIRFEfJyfXxAhrjj5FfWOFZmf/vvhw0Ql5ZrT08v2vxfa5Bp1Fp4KM7vcVtLKYV600LCUviCKGzjup9L6h+atYBV/2muxtPp3jTw8j/+/vj5Cbop5Fe8y/2bFvWKDgARHIaJ98qRMV71Nfi3RvSiE8AamKRihep7SkiYdQz5TPNh7lmFR0B709/awx0uZsHe6YILsaKsWXocL8/6ZTo2vdbkAZXNt+7P6EZlo4PuMbxA630wOrk6zskDRMu6m2cCUlMpcJUG3lx/Dp95M/29n2y9Vs5n42KykgwX7JR6IEedlyMThrhVHrM1V5NvSOB3S77NGgC7vNacQunb0XamDp9m14yPgZrs=
