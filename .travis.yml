@@ -1,6 +1,10 @@
 language: node_js
+node_js:
+  - "node"
+install:
+  - "npm install --only=production"
 script:
-- npm run build
+  - "npm run build"
 deploy:
   provider: firebase
   skip_cleanup: true
