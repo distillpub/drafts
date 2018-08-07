@@ -82,30 +82,27 @@ function getRepoFromURL(name, authorizedURL, targetDir) {
   .then(_ => fs.readdir(repoFolder))
   .then(files => {
     let sourceDir;
-    // if there's a public dir with index.html we use that dir
     const repoPublicSubfolder = `${repoFolder}/public`;
-    if (files.includes('public')) {
+    
+    // if there's a public dir with index.html we use that dir
+    if (!sourceDir && files.includes('public')) {
       const publicFiles = fs.readdirSync(repoPublicSubfolder);
       if (publicFiles.includes('index.html')) {
         sourceDir = repoPublicSubfolder
-      } else {
-        throw "Found public folder but no index.html in it!";
       }
-    } else {
-      // some people just have the html in the root folder
-      if (files.includes('index.html')) {
-        sourceDir = repoFolder;
-      } else {
-        // try npm
-        if (files.includes('package.json')) {
-          execSync(`cd ${repoFolder} && npm install && npm run build`);
-          // TODO: better separate potential build processes and folder conventions!
-          sourceDir = repoPublicSubfolder;
-        } else {
-          throw "Found no public folder and no index.html in root folder!";
-        }
-      }
+    } 
+    
+    // try npm
+    if (!sourceDir && files.includes('package.json')) {
+      execSync(`cd ${repoFolder} && npm install && npm run build`);
+      // TODO: better separate potential build processes and folder conventions!
+      sourceDir = repoPublicSubfolder;
     }
+    
+    if (!sourceDir) {
+      throw `${repoFolder}: Found no public folder and no index.html in root folder!`;
+    }
+
     //TODO: should we support any of these? [make files, npm run build, ...] ?
     console.log(name, sourceDir, targetPublicDir);
     return fs.copy(sourceDir, targetPublicDir);
