@@ -1,21 +1,32 @@
 # drafts
 ![Build status](https://travis-ci.org/distillpub/drafts.svg?branch=master)
 
-Pipeline / glue code for drafts.distill.pub
+`drafts` allows you take an in-progress Distill article submission and host it on `drafts.distill.pub`. To use it, you just add the Github bot account `distillpub-reviewers` as a collaborator of your repository.
 
-## How to publish articles
+## Continuous integration
 
-_This is not final documentation. For now, please only follow the guide on the main Distill website._
+If your repository is hosted by an organization account, you can give the bot account admin access and it will automatically install webhooks that trigger a redeploy when you push changes. If you don't have an organization account for your repository, it will rebuild once a day. Alternatively you can contact Distill to ask for a repository under the `distillpub` Github organization.
 
-### Add bot account `distillpub-reviewers` as a collaborator of your repo
-If you give it admin access, it can register a webhook and redeploy your article whenever you push changes.
-If you don't give it admin access, it will simply check once a day. Note that if your article gets accepted you will eventually have to transfer ownership of the repository to the `Distillpub` organization anyway, so we recommend adding `distillpub-reviewers` as a collaborator with admin rights.
+## Password "protection"
 
-### Bring article up-to-date
-- This will be better documented in the future on the distillpub/template repository and its associated wiki.
-- Ensure the project is linking to a current development version of template v2. You can use the version that we include as a dependency here (at `./node_modules/distill-template/dist/template.v2.js`) or build one from source.
-- When upgrading from v1 you may need to manually rename tags and reorganize parts of the document.
-  (For example, `<dt-` -> `<d-`, `</dt-` -> `</d-`, Bibliography and Front Matter need to be Bibtex and JSON tags, etc. Ludwig will write up a transition guide soon.)
+We can't offer truly secure password protected hosting at the moment, but if you'd like to send a strong social cue not to share your WIP, you can add a `password` parameter in your articles `front-matter` metadata, like so:
+
+```html
+<d-front-matter>
+  <script type="text/json">{
+  "title": "Example Distill Submission",
+  "password": "example-password",
+  "authors": […]
+  }</script>
+</d-front-matter>
+```
+
+This will add a UI overlay with a password prompt:
+
+<img width="446" alt="in-review" src="https://user-images.githubusercontent.com/1167977/45449505-a78b1780-b6d5-11e8-970f-a3f4dd5650e9.png">
+
+You only need to enter this password once per browser that you use to access the article.
+
   
 ## Troubleshooting
 
