@@ -1,5 +1,5 @@
 node_modules
 public/*
+!public/robots.txt
 build/*
-!build/robots.txt
 .env
