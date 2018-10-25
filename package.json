@@ -18,16 +18,16 @@
   },
   "homepage": "https://github.com/distillpub/drafts#readme",
   "devDependencies": {
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "firebase-tools": "^3.19.1",
+    "firebase-tools": "^5.1.1",
     "mocha": "^4.1.0",
     "sinon": "^4.5.0"
   },
   "dependencies": {
     "child_process": "^1.0.2",
     "d3-queue": "^3.0.7",
-    "distill-template": "distillpub/template#master",
+    "distill-template": "github:distillpub/template#master",
     "fs-extra": "^5.0.0",
     "github-api": "^3.0.0",
     "jsdom": "11.3.0",
