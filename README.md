@@ -39,7 +39,7 @@ You should not have to interact with draft's build system during normal operatio
 2. Empty the build cache (under `More Options` > `Caches`)
 3. Request a new build (under `More Options` > `Trigger build`)
 
-If you've tried these steps already, you may want to post in the _Distill Slack Community_ in the `#help` channel. If you aren't registered yet, [you can do so here](https://join.slack.com/t/distillpub/shared_invite/enQtMzg1NzU3MzEzMTg3LWJkNmQ4Y2JlNjJkNDlhYTU2ZmQxMGFkM2NiMTI2NGVjNzJkOTdjNTFiOGZmNDBjNTEzZGUwM2U0Mzg4NDAyN2E).
+If you've tried these steps already, you may want to post in the [Distill Slack Community](https://join.slack.com/t/distillpub/shared_invite/enQtMzg1NzU3MzEzMTg3LWJkNmQ4Y2JlNjJkNDlhYTU2ZmQxMGFkM2NiMTI2NGVjNzJkOTdjNTFiOGZmNDBjNTEzZGUwM2U0Mzg4NDAyN2E) in the `#help` channel.
 
 ## Disclaimer & License
 
