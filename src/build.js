@@ -56,15 +56,16 @@ function registerWebhooks(repo) {
   })
 }
 
-function getRepoFromURL(name, authorizedURL, targetDir) {
+function getRepoFromURL(full_name, name, authorizedURL, targetDir) {
   console.log('Cloning ' + name + ' ...');
-  const repoFolder = `${targetDir}/${name}`;
+  const repoFolder = `${targetDir}/${full_name}`;
   const publicFolderName = name
     .replace("post--", "")
     .replace(/[-_]?distill[-_]?/g, "")
     .replace(/_/g, '-')
     .toLowerCase();
   const targetPublicDir = `${publicDir}/${publicFolderName}`;
+  const altTargetPublicDir =  `${publicDir}/${full_name}`;
   const indexFile = `${targetPublicDir}/index.html`;
   const indexFileRaw = `${targetPublicDir}/index_raw.html`;
   
@@ -126,6 +127,7 @@ function getRepoFromURL(name, authorizedURL, targetDir) {
         });
     }
   })
+  .then(() => fs.copy(targetPublicDir, altTargetPublicDir));
   .catch(error => {
     console.error(`cloning threw error: ${error}`);
   });
@@ -153,11 +155,11 @@ const options = {
 user.listRepos(options)
 .then(({data: repos}) => {
   return Promise.all(repos.map(repo => {
-    const [name, url] = [repo.name, repo.clone_url];
+    const [full_name, name, url] = [repo.full_name, repo.name, repo.clone_url];
     const https = url.substring(0, 8);
     const auth = process.env.GITHUB_TOKEN + ':x-oauth-basic@';
     const authorizedURL = https + auth + url.substring(8, url.length);
-    return registerWebhooks(repo).then(() => getRepoFromURL(name, authorizedURL, buildDir));
+    return registerWebhooks(repo).then(() => getRepoFromURL(full_name, name, authorizedURL, buildDir));
   }));
 })
 .then(() => {
