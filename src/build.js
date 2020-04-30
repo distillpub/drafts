@@ -127,7 +127,7 @@ function getRepoFromURL(full_name, name, authorizedURL, targetDir) {
         });
     }
   })
-  .then(() => fs.copy(targetPublicDir, altTargetPublicDir));
+  .then(() => fs.copy(targetPublicDir, altTargetPublicDir))
   .catch(error => {
     console.error(`cloning threw error: ${error}`);
   });
