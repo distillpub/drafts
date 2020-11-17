@@ -1,9 +1,14 @@
 language: node_js
 node_js:
   - "10"
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install python3
 install:
   - "npm install --only=production"
+  - "python3 -m pip install pycryptodome"
 script:
+  - "python3 extract_keys.py"
   - "npm run build"
 deploy:
   provider: firebase
