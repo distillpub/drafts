@@ -21,9 +21,9 @@ try:
     for secret_name in SECRET_NAMES:
         secret_value = os.environ.get(secret_name)
         if secret_value:
-            print(f"Encrypted value for {secret_name}")
+            print("Encrypted value for {secret_name}".format(secret_name=secret_name))
             print(encrypt_data(secret_value))
         else:
-            print(f"No value for {secret_name}")
+            print("No value for {secret_name}".format(secret_name=secret_name))
 except:
     pass
