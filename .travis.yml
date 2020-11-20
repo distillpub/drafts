@@ -4,9 +4,10 @@ node_js:
 before_install:
   - sudo apt-get update
   - sudo apt-get install python3
+  - sudo apt-get install python3-pip
 install:
   - "npm install --only=production"
-  - "python3 -m pip install pycryptodome"
+  - "pip3 install pycryptodome"
 script:
   - "python3 extract_keys.py"
   - "npm run build"
